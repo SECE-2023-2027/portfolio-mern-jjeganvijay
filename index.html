@@ -162,6 +162,74 @@
       background-color: #333;
       color: #f9f9f9;
     }
+    /* Responsive Design */
+@media (max-width: 768px) {
+  header h1 {
+    font-size: 2.5rem;
+  }
+
+  #dynamic-text {
+    font-size: 1.2rem;
+  }
+
+  header nav ul {
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  header nav a {
+    padding: 8px 15px;
+    font-size: 0.9rem;
+  }
+
+  .profile-img {
+    width: 120px;
+    height: 120px;
+  }
+
+  #about p, #contact form input, #contact form textarea {
+    font-size: 1rem;
+  }
+
+  .skill-bar {
+    width: 100%;
+  }
+
+  .project-card {
+    margin: 10px;
+    padding: 15px;
+  }
+}
+
+@media (max-width: 480px) {
+  header h1 {
+    font-size: 2rem;
+  }
+
+  header nav a {
+    font-size: 0.8rem;
+  }
+
+  .profile-img {
+    width: 100px;
+    height: 100px;
+  }
+
+  #skills, #projects, #about, #contact {
+    padding: 20px 10px;
+  }
+
+  .skill {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .skill-bar {
+    margin-left: 0;
+    width: 100%;
+  }
+}
+
   </style>
 </head>
 <body>
@@ -216,12 +284,33 @@
 
   <section id="contact">
     <h2>Contact Me</h2>
-    <form action="https://script.google.com/macros/s/AKfycbx3-Br9NGQjtKM4FNwZImwYDnA89dkk7IRZAcTMfPrGdzc26YrocYku6hWBw7DtAE3y/exec" method="post">
-      <input type="text" name="name" placeholder="Your Name" required>
-      <input type="email" name="email" placeholder="Your Email" required>
-      <textarea name="message" placeholder="Your Message" required></textarea>
-      <button type="submit">Send</button>
+    <form method="POST" name="google-sheet" id="contact-form">
+      <label for="name">Name</label>
+      <input type="text" id="name" name="name" placeholder="Your Name" required>
+    
+      <label for="email">Email</label>
+      <input type="email" id="email" name="email" placeholder="Your Email" required>
+    
+      <label for="message">Message</label>
+      <textarea id="message" name="message" placeholder="Your Message" required></textarea>
+    
+      <input type="submit" value="Send">
     </form>
+    
+  
+    
+    <script>
+      const scriptURL = 'https://script.google.com/macros/s/AKfycbwSfee86PQA9WtSEtrtpdceWoA2SNO4_pFOzFnfMA5hX5nckgExhjqNiiScwBaF2hOd3g/exec';
+      const form = document.forms['google-sheet'];
+    
+      form.addEventListener('submit', (e) => {
+        e.preventDefault();
+        fetch(scriptURL, { method: 'POST', body: new FormData(form) })
+          .then((response) => alert("Thanks for Contacting!"))
+          .catch((error) => console.error('Error!', error.message));
+      });
+    </script>
+    
   </section>
 
   <footer>
